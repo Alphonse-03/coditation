@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+    <style>
+
+        .container {
+            position: relative;
+            float: right;
+            right:45%;
+        }
+        #grid{
+            position: relative;
+            left: 55%;
+            margin-bottom: 5%;
+        }
+        textarea {
+            font-size:50px;
+            padding: 5px;
+            margin-left: 3px;
+        }
+        .keyboard{
+            margin-bottom: 50px;
+            position: relative;
+            left: 35%;
+            
+            
+        }
+        .but{
+            width:40px;
+            height:50px;
+            padding: 5px;
+            border-radius: 6px;
+            margin: 2px;
+        }
+       
+        html{
+            position:relative; 
+            min-height: 100%;
+        }
+        .footer{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height:40px;
+            background:rgb(151, 149, 149);
+            text-align:center;
+        }
+    </style>
+    
+   
+</head>
+<body style="background-color:black;color:white;">
+    
+  <h1 style="text-align:center;">Wordle</h1>
+    <hr>
+    <div class="content">
+        <h1 id="res" style="color:green; text-align:center;"></h1>
+    <button id="theme" onclick="changeTheme()">Theme  <img id="the" src="https://cdn-icons-png.flaticon.com/512/66/66275.png" height="15px" alt=""></button>
+    <div class="container">
+        <div id="grid">
+
+        </div>
+    
+    <div class="keyboard">
+        <button class="but" id="q" onclick="typee('q')">Q</button>
+        <button class="but" id="w" onclick="typee('w')">W</button>
+        <button class="but" id="e" onclick="typee('e')">E</button>
+        <button class="but" id="r" onclick="typee('r')">R</button>
+        <button class="but" id="t" onclick="typee('t')">T</button>
+        <button class="but" id="y" onclick="typee('y')">Y</button>
+        <button class="but" id="u" onclick="typee('u')">U</button>
+        <button class="but" id="i" onclick="typee('i')">I</button>
+        <button class="but" id="o" onclick="typee('o')">O</button>
+        <button class="but" id="p" onclick="typee('p')">P</button>
+        <br>
+        <button style="margin-left:26px;" class="but" id="a" onclick="typee('a')">A</button>
+        <button class="but" id="s" onclick="typee('s')">S</button>
+        <button class="but" id="d" onclick="typee('d')">D</button>
+        <button class="but" id="f" onclick="typee('f')">F</button>
+        <button class="but" id="g" onclick="typee('g')">G</button>
+        <button class="but" id="h" onclick="typee('h')">H</button>
+        <button class="but" id="j" onclick="typee('j')">J</button>
+        <button class="but" id="k" onclick="typee('k')">K</button>
+        <button class="but" id="l" onclick="typee('l')">L</button>
+        <br>
+        <button style="width: 60px;" class="but" onclick="validate()">Enter</button>
+        <button class="but" id="z" onclick="typee('z')">Z</button>
+        <button class="but" id="x" onclick="typee('x')">X</button>
+        <button class="but" id="c" onclick="typee('c')">C</button>
+        <button class="but" id="v" onclick="typee('v')">V</button>
+        <button class="but" id="b" onclick="typee('b')">B</button>
+        <button class="but" id="n" onclick="typee('n')">N</button>
+        <button class="but" id="m" onclick="typee('m')">M</button>
+        <button class="but" onclick="typee('bk')" style="width:60px;"><span class="material-icons">backspace</span></button>
+    </div>
+    </div>
+</div>
+    <div class="footer"> Made with 💖 Alphonse Prakash (21MCA0062)</div>
+    <p hidden id="rand">{{random}}</p>
+    <p hidden id="options">{{options}}</p>
+
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded',()=>{
+            create();
+            function create(element){
+            let g=document.getElementById("grid");
+            for(let i=0;i<6;i++){
+                for(let j=0;j<5;j++){
+                    let node = document.createElement("textarea");
+                    node.classList.add("val");
+                    node.classList.add("animate__animated");
+                    node.setAttribute("id",(i*5+j)+1);
+                    node.setAttribute("rows",1);
+                    node.setAttribute("cols",1);
+                    node.setAttribute("disabled",true);
+                    node.setAttribute("maxlength",1);
+                    node.setAttribute("style",style="resize: none;");
+                    grid.appendChild(node);
+                }
+                let x = document.createElement("br");
+                grid.appendChild(x);
+
+            }
+            
+            }
+        })
+
+        let idx=0;
+        function changeTheme(){
+            if(document.body.style.backgroundColor==="black")
+            {
+                document.getElementById("the").src="https://cdn-icons-png.flaticon.com/512/606/606807.png";
+                document.body.style.background ="white";
+                document.body.style.color = "black";
+                for(let i=0;i<idx;i++){
+                    document.getElementById(i+1).style.color ="black";
+                }
+               
+                
+            }
+            else{
+                document.getElementById("the").src="https://cdn-icons-png.flaticon.com/512/66/66275.png";
+                document.body.style.background = "black";
+                document.body.style.color = "white";
+                for(let i=0;i<idx;i++){
+                    document.getElementById(i+1).style.color ="white";
+                }
+                
+               
+            }
+        }
+
+
+
+        
+        let lower_locked=0;
+        let upper_locked=5;
+        let arr=document.getElementsByClassName("val");
+        let win=false;
+
+       
+       function typee(val){
+           let x=document.body.style.backgroundColor;
+        if(win===false){
+            if(val=='bk'){
+            if(idx>lower_locked){
+                   
+                    arr[--idx].value='';
+                }
+          }
+          else{
+           
+            if(idx<upper_locked){
+                arr[idx].value=val;
+                if(x==="black"){arr[idx].style.color="white";}
+                else{arr[idx].style.color="black"};
+                idx++;
+            }
+        }
+        }
+         
+
+       }
+
+
+       document.addEventListener('keydown', (event) => {
+        var name = event.key;
+        name=name.toLowerCase();
+        if(name==="backspace" && win===false)
+        {
+            if(idx>lower_locked){
+           
+                arr[idx-1].value='';
+                idx--;
+            }
+        }
+        if(name==="enter" )
+        {
+           validate();
+        }
+        else if(name.length==1 && name>='a' && name<='z'){
+            let x=document.body.style.backgroundColor;
+            if(idx<upper_locked && win===false){
+                if(x==="black"){
+                    arr[idx].value=name;
+                    arr[idx].style.color="white";
+                }
+                else{
+                    arr[idx].value=name;
+                    arr[idx].style.color="black";
+                }
+                idx++;
+            }
+            
+        }
+    }, false);
+
+   
+
+        function validate() {
+            let correct=document.getElementById("rand").innerHTML;
+            let opt=document.getElementById("options").innerHTML;
+            let arr_options = opt.split('\\n');
+
+            
+            let flag=true;
+           
+        
+            let input_arr=[];
+            if(idx%5!=0 || lower_locked===idx){
+                alert("Not enough words");
+                flag=false;
+            }
+
+            else{
+            
+            let s="";
+            for(i=0;i<idx;i++){
+                if(s.length<5){
+                    s+=arr[i].value;
+                }
+                if(s===correct){
+                    win=true;
+                    document.getElementById("res").innerHTML="GENIUS!!!";
+                }
+                if(s.length===5){
+                    let result = arr_options.includes(s);
+                    if(result===true){
+                        input_arr.push(s);
+                        s="";
+                    }
+                    else{
+                        alert("Given Word not present in the list");
+                        flag=false;
+                        break;
+                    }
+                    
+                }
+               
+            }
+
+            for(let i=0;i<input_arr.length;i++){
+            
+                for(let j=0;j<5;j++){
+                    setTimeout(()=>{
+                        let element=document.getElementById(i*5+j+1).classList.add("animate__flipInX");
+                    
+                    if(input_arr[i][j]===correct[j]){
+                        arr[i*5+j].style.backgroundColor='green';
+                        document.getElementById(correct[j]).style.backgroundColor='green';
+                      
+                    }
+                    else if(correct.includes(input_arr[i][j])){
+                        arr[i*5+j].style.backgroundColor='yellow';
+                        let prev_col=document.getElementById(input_arr[i][j]).style.backgroundColor;
+                        if(prev_col!=='green'){
+                            document.getElementById(input_arr[i][j]).style.backgroundColor='yellow';
+                        }
+
+                    }
+                    else{
+                        arr[i*5+j].style.backgroundColor='grey';
+                    }
+                
+                },200*(j+1));
+            
+            }
+        }
+           
+           if(idx===30 && win===false){
+               alert(`${correct}`);
+           }
+            
+        
+        }
+        
+        if(flag){
+            lower_locked+=5;
+            upper_locked+=5;
+            let correct_arr=Array(26).fill(0);
+            let correct_opt=Array(26).fill(0);
+            for(i=0;i<correct.length;i++){
+                let temp=(correct.charCodeAt(i))-97;
+                correct_arr[temp]++;
+            }
+        
+            for(i=0;i<idx;i++){
+                let temp=(arr[i].value.charCodeAt(0))-97;
+                
+                correct_opt[temp]++;
+                
+            }
+            
+        }
+    }
+    </script>
+</body>
+</html>
